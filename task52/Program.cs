@@ -1,16 +1,16 @@
-﻿// // Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+﻿// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
-// // Например, задан массив:
-// // 1 4 7 2
-// // 5 9 2 3
-// // 8 4 2 4
-// // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
 Console.Clear();
 
 int Prompt(string message)
 {
-    Console.WriteLine(message);
+    Console.Write(message);
     int num = int.Parse(Console.ReadLine()!);
     return num;
 }
@@ -41,36 +41,34 @@ void PrintArray(int[,] ar2)
     }
 }
 
-void ArithmeticElements(int[,] Elements)
+void ArithmeticElements(int[,] Elements, double[] SumEl)
 {
 
-    Console.Write("Средне-арифметические значения столбцов: ");
-
-    for (int i = 0; i < Elements.GetLength(0); i++)
+    for (int i = 0; i < Elements.GetLength(1); i++)
     {
         double sum = 0;
 
-        for (int j = 0; j < Elements.GetLength(1); j++)
+        for (int j = 0; j < Elements.GetLength(0); j++)
         {
-            sum = sum + Elements[j, i];
+            sum = sum + Elements[j, i]; // j - столбец i - строка
         }
 
         double Value = 0;
 
-        for (int k = 0; k < Elements.GetLength(1); k++)
-        {
-            Value = sum / Elements.GetLength(1);
-        }
+        Value = sum / Elements.GetLength(0);
 
-        Console.Write($"{Math.Round(Value, 3)} | ");
+        Console.WriteLine($"Сумма {i + 1} столбца = {sum}, средне-арифметические значение столбца: {Math.Round(Value, 3)}");// 
     }
+
 }
 
 int str = Prompt("Введите количество строк: ");
 int col = Prompt("Введите количество столбцов: ");
-int[,] array1 = CreateArray(str, col);
+int[,] elements = CreateArray(str, col);
 
-PrintArray(array1);
+double[] SumEl = new double[elements.GetLength(1)];
+
+PrintArray(elements);
 Console.WriteLine();
 
-ArithmeticElements(array1);
+ArithmeticElements(elements, SumEl);
